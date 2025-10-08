@@ -50,7 +50,10 @@ app.get('/api/szobak', (req, res) => {
 //c feladat
 
 app.get('/api/szobak', (req, res) => {
-    db.query('', (err, result) => {
+    db.query(`select foglalasok.szoba, vendegek.vnev
+from foglalasok
+join vendegek on foglalasok.vendeg = vendegek.vsorsz
+order by vendegek.vnev asc`, (err, result) => {
         if (err) {
             res.status(500).json({error: 'Lekérdezési hiba'});
         } else {
