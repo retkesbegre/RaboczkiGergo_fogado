@@ -47,5 +47,22 @@ app.get('/api/szobak', (req, res) => {
 
 );
 
+//c feladat
+
+app.get('/api/szobak', (req, res) => {
+    db.query('', (err, result) => {
+        if (err) {
+            res.status(500).json({error: 'Lekérdezési hiba'});
+        } else {
+            res.json(result);
+        }
+    }
+);
+}
+
+);
+
+
+
 
 
