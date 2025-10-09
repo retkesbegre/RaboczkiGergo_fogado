@@ -1,71 +1,52 @@
-const express = require('express')  //importálom az expresst
+const express = require('express');
+const mysql = require('mysql2');
 
-const app = express(); //létrehozom az alkalmazás példányt
+const app = express();
 
-app.get('/', (req, res) => {  //alap útvonal
-    res.send('Hello, backend')
-});
-
-const PORT = 3307;  //beállítom az általam használt portot
-
-app.listen(PORT, () => {  //indítom a szervert
-    console.log(`A szerver fut a https://localhost:${PORT} címen`) 
-});
+const PORT = 3307;
 
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'fogado'
-}
-
-);
+});
 
 db.connect(err => {
     if (err) {
-        console.error('Hiba történt')
+        console.error('Hiba történt a kapcsolódáskor:', err);
     } else {
-        console.log('Sikeres a kapcsolat')
+        console.log('Sikeres adatbázis kapcsolat');
     }
+});
 
-}
-
-);
-
-//a feladat
+app.get('/', (req, res) => {
+    res.send('Hello, backend');
+});
 
 app.get('/api/szobak', (req, res) => {
-    db.query('select sznev, agy from szobak,', (err, result) => {
+    db.query('SELECT sznev, agy FROM szobak', (err, result) => {
         if (err) {
-            res.status(500).json({error: 'Lekérdezési hiba'});
+            res.status(500).json({ error: 'Lekérdezési hiba' });
         } else {
             res.json(result);
         }
-    }
-);
-}
+    });
+});
 
-);
-
-//c feladat
-
-app.get('/api/szobak', (req, res) => {
-    db.query(`select foglalasok.szoba, vendegek.vnev
-from foglalasok
-join vendegek on foglalasok.vendeg = vendegek.vsorsz
-order by vendegek.vnev asc`, (err, result) => {
+app.get('/api/foglalasok', (req, res) => {
+    db.query(`SELECT foglalasok.szoba, vendegek.vnev
+              FROM foglalasok
+              JOIN vendegek ON foglalasok.vendeg = vendegek.vsorsz
+              ORDER BY vendegek.vnev ASC`, (err, result) => {
         if (err) {
-            res.status(500).json({error: 'Lekérdezési hiba'});
+            res.status(500).json({ error: 'Lekérdezési hiba' });
         } else {
             res.json(result);
         }
-    }
-);
-}
+    });
+});
 
-);
-
-
-
-
-
+app.listen(PORT, () => {
+    console.log(`A szerver fut a http://localhost:${PORT} címen`);
+});
