@@ -1,17 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import TablazatSzoba from './components/TablazatSzoba';
-
-
-
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedRoom, setSelectedRoom] = useState("");
 
   return (
-   <TablazatSzoba/>
-  )
-}
+    <div className="container">
+      <h1 className="text-center my-4">Szobafoglaltság lekérdezés</h1>
 
-export default App
+      <div className="mb-4 text-center">
+        <label htmlFor="roomSelect" className="form-label">Válassz szobát:</label>
+        <select
+          id="roomSelect"
+          className="form-select w-auto mx-auto"
+          value={selectedRoom}
+          onChange={(e) => setSelectedRoom(e.target.value)}
+        >
+          <option value="">-- Válassz --</option>
+          <option value="101">101</option>
+          <option value="102">102</option>
+          <option value="103">103</option>
+        </select>
+      </div>
+
+      <TablazatSzoba selectedRoom={selectedRoom} />
+    </div>
+  );
+}

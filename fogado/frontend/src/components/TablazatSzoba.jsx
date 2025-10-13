@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'tachyons';
@@ -17,21 +17,20 @@ function TablazatSzoba({ selectedRoom }) {
         setLoading(true); // 🔄 Betöltési állapot
         console.log("Új szoba választva, adatok lekérése:", selectedRoom);
 
-        axios.get(`http://localhost:3001/foglaltsag/${selectedRoom}`)
-            .then(response => {
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/foglaltsag/${selectedRoom}`)
+        .then(response => {
                 console.log("Foglaltsági adatok frissítve:", response.data);
                 setData(response.data);
             })
             .catch(error => console.error("Hiba:", error))
             .finally(() => setLoading(false)); // ✅ Betöltés vége
 
-    }, [selectedRoom]); // 🔄 A useEffect minden selectedRoom változásnál lefut
+    }, [selectedRoom]);
 
     return (
         <div>
             <h2 className="text-center my-4">Szoba foglaltsága</h2>
 
-            {/* 🔴 Ha nincs kiválasztott szoba, akkor egy üzenet jelenjen meg */}
             {!selectedRoom ? (
                 <p className="text-center text-muted">Válassz egy szobát a foglaltság megtekintéséhez.</p>
             ) : loading ? (
@@ -50,10 +49,10 @@ function TablazatSzoba({ selectedRoom }) {
                         {data.length > 0 ? (
                             data.map((row) => (
                                 <tr key={row.szazon}>
-                                    <td>{row.vnev} </td>
-                                    <td>{row.sznev} </td>
-                                    <td className="text-center">{row.erk} </td>
-                                    <td className="text-center">{row.tav} </td>
+                                    <td>{row.vnev}</td>
+                                    <td>{row.sznev}</td>
+                                    <td className="text-center">{row.erk}</td>
+                                    <td className="text-center">{row.tav}</td>
                                 </tr>
                             ))
                         ) : (
