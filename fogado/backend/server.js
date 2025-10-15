@@ -6,22 +6,23 @@ const app = express();
 
 app.use(cors());
 
-const PORT = 3307;
+const PORT = 3000;
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'fogado'
+    database: 'fogado',
+    port: 3307
 });
 
-db.connect(err => {
+/*db.connect(err => {
     if (err) {
         console.error('Hiba történt a kapcsolódáskor:', err);
     } else {
         console.log('Sikeres adatbázis kapcsolat');
     }
-});
+});*/
 
 app.get('/', (req, res) => {
     res.send('Hello, backend');
