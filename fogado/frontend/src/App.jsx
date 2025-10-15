@@ -10,7 +10,9 @@ function App() {
   return (
     <div>
       {/* Use imported images as module values */}
-      <img className="top" src={topImg} alt="top" />
+      <div className="topDiv">
+        <img className="top" src={topImg} alt="top" />
+      </div>
 
       <div className="elhelyezes">
         <div className="bal">

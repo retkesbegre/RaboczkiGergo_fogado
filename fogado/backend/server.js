@@ -1,10 +1,10 @@
-const cors = require('cors');
-app.use(cors());
-
 const express = require('express');
+const cors = require('cors');
 const mysql = require('mysql2');
 
 const app = express();
+
+app.use(cors());
 
 const PORT = 3307;
 

@@ -1,18 +1,31 @@
-.top {
-    height: 300px;
-    width: 1340px;
-    border-radius: 30px;
+body {
+    max-width: 1440px;
+    margin: 30px auto;
+}
+.topDiv {
+    
+    text-align: center;
 }
 
+.top {
+    height: 300px;
+    width: 1320px;
+    
+}
 .elhelyezes {
     display: flex;
+   
+   
+    
+    
+   
 
    
     
 }
 .bal {
     background-color: rgb(222, 161, 30);
-    width: 400px;
+    width: 500px;
     text-align: center;
     
     
@@ -25,13 +38,17 @@
 }
 
 .kozep {
-    width: 400px;
+    width: 500px;
     text-align: center;
 }
 
 .jobb {
     background-color: rgb(222, 161, 30);
-    width: 400px;
+    width: 500px;
     text-align: center;
     
+}
+
+div {
+    padding: 20px;
 }
